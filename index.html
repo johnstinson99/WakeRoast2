@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wakeboarding Insult Generator</title>
+  <title>Wakeboarding Insult Generator · no repeats</title>
   <style>
     * {
       box-sizing: border-box;
@@ -126,99 +126,128 @@
 <body>
   <div class="card">
     <h1>
-      <span></span> Wake Roast <span></span>
+      Wake Roast
     </h1>
 
-    <!-- Insult display - initially empty, filled by script below -->
+    <!-- Insult display -->
     <div class="insult-box" id="insultDisplay"></div>
 
     <div class="controls">
       <button id="generateBtn">
         <span>🎲</span> Next
       </button>
-
     </div>
 
   </div>
 
   <script>
-    // ---------- INSULTS DATABASE ----------
-    const insults = [
-      "I've seen smoother transfers on a Windows 10 update.",
-      "That rail session was less 'Butter' and more 'I Can't Believe It's Not Better'.",
-      "You're not supposed to wax the rail with your face.",
-      "That boardslide was about as stylish as a colonoscopy.",
-      "You're the first person to make the fun box look boring.",
-      "You're pulling a massive wake... in your pants.",
-      "Your edging is so inconsistent, even the water is confused.",
-      "I've seen better line choice in a game of Connect four.",
-      "I'd call your riding 'aggressive', but that would imply you were going in a specific direction.",
-      "I’ve seen better edge control from a toddler with a crayon.",
-      "Nice line. I think you just qualified for the slalom course",
-      "You're here to hit the feature, not for a scenic tour of the lake",
-      "Was that a transfer or a full body exfoliation?",
-      "You had the perfect form of a guy trying to land a 360. In a dream where his legs don't work.",
-      "Were you attempting a trick or just testing the water temperature with your face?",
-      "I've seen more grace and poise in a duck with its head cut off.",
-"Your approach to the kicker was so tentative, it looked like you were trying to sneak up on a lettuce.",
-"Your riding is a veritable symphony of incompetence, conducted by a deaf orangutan.",
-"That trick you just attempted had all the aerodynamic properties of a cow falling out of a tree.",
-"If brains were wax, you wouldn't have enough to keep a single rail buttery enough for a squirrel.",
-"Your ability to clear the kicker is matched only by your ability to clear a room of intelligent people.",
-"Your riding is proof that God has a sense of humor, and it's a very, very cruel one.",
-"I've seen smoother transfers on a medieval cart with square wheels.",
-"Your approach to the kicker had all the confidence of a penguin attempting to order a pizza; bold, but deeply misguided.",
-"Let's talk about your edging. And by 'edging,' I mean your complete refusal to commit to any direction whatsoever",
-"To understand why your riding is so spectacularly awful, we need to look at three factors: your balance, your timing, and the fundamental laws of motion as established by Sir Isaac Newton in 1687—all of which you have somehow managed to violate simultaneously.",
-"Your approach to that feature raises profound questions—not just about your wakeboarding ability, but about the entire educational system that produced someone so utterly unprepared for basic aquatic physics.",
-"That rail hit looked like a fridge falling down stairs. With the doors open. And a family inside.",
-"That's not a wipeout. That's natural selection in action.",
-"I've seen better edge control on a circular table.",
-"You're not a wakeboarder. You're the reason the wakeboarders buy insurance.",
-"Everybody falls. You've managed to turn falling into an artform",
-"I don't understand the criticism. I thought his performance was superb—if, of course, you were attempting to entertain passing fish by impersonating a drowning weasel.",
-"If I wished to see someone flail about uselessly whilst attached to a piece of rope, I would attend the public execution of a particularly incompetent pirate.",
-"Your approach to that feature was so tentative, so utterly lacking in conviction, that I suspect even the water moved aside out of sheer pity rather than risk being struck by you.",
-"You have the turning circle of a Spanish galleon, the acceleration of a constipated snail, and the style of a one-legged heron attempting to mate with a turnip.",
-"I have witnessed many aquatic disasters in my time—ships sinking, fleets foundering, men drowning in shallow puddles—but I must say, your performance today has made every previous maritime tragedy look like a triumph of naval engineering.",
-"He is a good fellow. And when I say 'good,' I mean he is not actively malicious. When I say 'fellow,' I mean he is technically a human being. When I say nothing about his wakeboarding, I am being kind.",
-"There are two types of wakeboarders: those who can, and those who teach. You, my friend, have found a third category: those who provide comedic relief for the former.",
-"I have spent a great deal of time on the water, and I have concluded that you are the first person to make the lake itself look embarrassed.",
-"You have all the makings of a truly mediocre wakeboarder. Unfortunately, you have failed to achieve even that modest ambition.",
-"Never have so many people cleared the water so quickly due to one person's complete lack of spatial awareness.",
-"The only thing you clear consistently is the immediate vicinity of anyone with actual skill.",
-"Your attempt at a boardslide required tremendous courage. Unfortunately, it required talent considerably more.",
-"You have no enemies on the water, but are intensely disliked by the cable, the features, and every observing duck.",
-"Your edging is not merely bad; it is a crime against aesthetics that would make even a seasick pelican weep",
-"To watch you ride is to understand that nature has a sense of humor, and it is remarkably unkind to you.",
-"Your approach to that kicker was less 'send it' and more 'send help.'",
-"I've seen better line choice in a game of Snakes and Ladders played by blindfolded chimpanzees.",
-"That rail hit was so short it should come with a government health warning about premature evacuation.",
-"The only thing you've ever hit consistently is rock bottom. And occasionally a buoy. And last Tuesday, a duck."
-    ];
+    (function() {
+      // ---------- INSULTS DATABASE (same glorious roasts) ----------
+      const insults = [
+        "I've seen smoother transfers on a Windows 10 update.",
+        "That rail session was less 'Butter' and more 'I Can't Believe It's Not Better'.",
+        "You're not supposed to wax the rail with your face.",
+        "That boardslide was about as stylish as a colonoscopy.",
+        "You're the first person to make the fun box look boring.",
+        "You're pulling a massive wake... in your pants.",
+        "Your edging is so inconsistent, even the water is confused.",
+        "I've seen better line choice in a game of Connect four.",
+        "I'd call your riding 'aggressive', but that would imply you were going in a specific direction.",
+        "I’ve seen better edge control from a toddler with a crayon.",
+        "Nice line. I think you just qualified for the slalom course",
+        "You're here to hit the feature, not for a scenic tour of the lake",
+        "Was that a transfer or a full body exfoliation?",
+        "You had the perfect form of a guy trying to land a 360. In a dream where his legs don't work.",
+        "Were you attempting a trick or just testing the water temperature with your face?",
+        "I've seen more grace and poise in a duck with its head cut off.",
+        "Your approach to the kicker was so tentative, it looked like you were trying to sneak up on a lettuce.",
+        "Your riding is a veritable symphony of incompetence, conducted by a deaf orangutan.",
+        "That trick you just attempted had all the aerodynamic properties of a cow falling out of a tree.",
+        "If brains were wax, you wouldn't have enough to keep a single rail buttery enough for a squirrel.",
+        "Your ability to clear the kicker is matched only by your ability to clear a room of intelligent people.",
+        "Your riding is proof that God has a sense of humor, and it's a very, very cruel one.",
+        "I've seen smoother transfers on a medieval cart with square wheels.",
+        "Your approach to the kicker had all the confidence of a penguin attempting to order a pizza; bold, but deeply misguided.",
+        "Let's talk about your edging. And by 'edging,' I mean your complete refusal to commit to any direction whatsoever",
+        "To understand why your riding is so spectacularly awful, we need to look at three factors: your balance, your timing, and the fundamental laws of motion as established by Sir Isaac Newton in 1687—all of which you have somehow managed to violate simultaneously.",
+        "Your approach to that feature raises profound questions—not just about your wakeboarding ability, but about the entire educational system that produced someone so utterly unprepared for basic aquatic physics.",
+        "That rail hit looked like a fridge falling down stairs. With the doors open. And a family inside.",
+        "That's not a wipeout. That's natural selection in action.",
+        "I've seen better edge control on a circular table.",
+        "You're not a wakeboarder. You're the reason the wakeboarders buy insurance.",
+        "Everybody falls. You've managed to turn falling into an artform",
+        "I don't understand the criticism. I thought his performance was superb—if, of course, you were attempting to entertain passing fish by impersonating a drowning weasel.",
+        "If I wished to see someone flail about uselessly whilst attached to a piece of rope, I would attend the public execution of a particularly incompetent pirate.",
+        "Your approach to that feature was so tentative, so utterly lacking in conviction, that I suspect even the water moved aside out of sheer pity rather than risk being struck by you.",
+        "You have the turning circle of a Spanish galleon, the acceleration of a constipated snail, and the style of a one-legged heron attempting to mate with a turnip.",
+        "I have witnessed many aquatic disasters in my time—ships sinking, fleets foundering, men drowning in shallow puddles—but I must say, your performance today has made every previous maritime tragedy look like a triumph of naval engineering.",
+        "He is a good fellow. And when I say 'good,' I mean he is not actively malicious. When I say 'fellow,' I mean he is technically a human being. When I say nothing about his wakeboarding, I am being kind.",
+        "There are two types of wakeboarders: those who can, and those who teach. You, my friend, have found a third category: those who provide comedic relief for the former.",
+        "I have spent a great deal of time on the water, and I have concluded that you are the first person to make the lake itself look embarrassed.",
+        "You have all the makings of a truly mediocre wakeboarder. Unfortunately, you have failed to achieve even that modest ambition.",
+        "Never have so many people cleared the water so quickly due to one person's complete lack of spatial awareness.",
+        "The only thing you clear consistently is the immediate vicinity of anyone with actual skill.",
+        "Your attempt at a boardslide required tremendous courage. Unfortunately, it required talent considerably more.",
+        "You have no enemies on the water, but are intensely disliked by the cable, the features, and every observing duck.",
+        "Your edging is not merely bad; it is a crime against aesthetics that would make even a seasick pelican weep",
+        "To watch you ride is to understand that nature has a sense of humor, and it is remarkably unkind to you.",
+        "Your approach to that kicker was less 'send it' and more 'send help.'",
+        "I've seen better line choice in a game of Snakes and Ladders played by blindfolded chimpanzees.",
+        "That rail hit was so short it should come with a government health warning about premature evacuation.",
+        "The only thing you've ever hit consistently is rock bottom. And occasionally a buoy. And last Tuesday, a duck."
+      ];
 
-    // ----- DOM elements -----
-    const insultDisplay = document.getElementById('insultDisplay');
-    const generateBtn = document.getElementById('generateBtn');
+      // ---------- DOM elements ----------
+      const insultDisplay = document.getElementById('insultDisplay');
+      const generateBtn = document.getElementById('generateBtn');
 
-    // ----- Helper: random insult -----
-    function getRandomInsult() {
-      const randomIndex = Math.floor(Math.random() * insults.length);
-      return insults[randomIndex];
-    }
+      // ---------- no-repeat randomizer ----------
+      // We'll keep an array of indices that haven't been shown yet.
+      let remainingIndices = [];
 
-    // ----- Update display with new insult -----
-    function showNewInsult() {
-      insultDisplay.textContent = getRandomInsult();
-    }
+      // Fisher–Yates shuffle
+      function shuffleArray(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+      }
 
-    // ----- Set a random insult immediately on page load -----
-    // This runs right after the insultDisplay element exists
-    showNewInsult();
+      // Fill remainingIndices with all indices in random order
+      function refillPool() {
+        // create array [0, 1, 2, ... , insults.length-1]
+        remainingIndices = Array.from({ length: insults.length }, (_, i) => i);
+        shuffleArray(remainingIndices);
+      }
 
-    // ----- Event listeners -----
-    generateBtn.addEventListener('click', showNewInsult);
-    copyBtn.addEventListener('click', copyInsultToClipboard);
+      // Initial pool
+      refillPool();
+
+      // Get the next insult without repeating (resets pool when all have been shown)
+      function getNextInsult() {
+        if (remainingIndices.length === 0) {
+          refillPool(); // start a new cycle
+        }
+        // pop the last index (more efficient) – we already shuffled, so order is random
+        const idx = remainingIndices.pop();
+        return insults[idx];
+      }
+
+      // ----- Update display with new insult -----
+      function showNewInsult() {
+        insultDisplay.textContent = getNextInsult();
+      }
+
+      // ----- initial display (first random insult from fresh pool) -----
+      showNewInsult();
+
+      // ----- Event listener for the button -----
+      generateBtn.addEventListener('click', showNewInsult);
+
+      // (Optional) small visual cue that pool resets – you could add a subtle message,
+      // but the behaviour is exactly what you wanted: all insults appear once per cycle.
+    })();
   </script>
 </body>
 </html>
