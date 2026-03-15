@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wakeboarding Insult Generator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(145deg, #0b3b5c 0%, #1b7e9f 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      padding: 16px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(4px);
+      border-radius: 32px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      max-width: 600px;
+      width: 100%;
+      padding: 32px 24px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      color: #023047;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    h1 span {
+      font-size: 2.5rem;
+    }
+
+    .subtitle {
+      color: #2a5f7a;
+      font-weight: 500;
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    .insult-box {
+      background: #f0f9ff;
+      border: 3px solid #fbbf24;
+      border-radius: 24px;
+      padding: 28px 20px;
+      margin: 20px 0 30px;
+      font-size: 1.6rem;
+      font-weight: 600;
+      line-height: 1.4;
+      min-height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 4px 8px rgba(0,0,0,0.05);
+      color: #022b3a;
+      word-break: break-word;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    button {
+      background: white;
+      border: none;
+      border-radius: 60px;
+      padding: 14px 28px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 6px 0 #b45309, 0 8px 16px rgba(0,0,0,0.2);
+      transition: all 0.08s linear;
+      color: #1e293b;
+      border: 2px solid #fbbf24;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    button:active {
+      transform: translateY(6px);
+      box-shadow: 0 2px 0 #b45309, 0 5px 12px rgba(0,0,0,0.2);
+    }
+
+    button.copy-btn {
+      background: #2c3e50;
+      color: white;
+      box-shadow: 0 6px 0 #1a2632;
+      border-color: #475569;
+    }
+
+    .footer {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: #2d5a73;
+    }
+
+    .footer a {
+      color: #fbbf24;
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>
+      <span></span> Wake Roast <span></span>
+    </h1>
+    <div class="subtitle">random insults for cable park homies</div>
+
+    <div class="insult-box" id="insultDisplay">
+      Click the button to roast your friends!
+    </div>
+
+    <div class="controls">
+      <button id="generateBtn">
+        <span>🎲</span> Random Insult
+      </button>
+      <button id="copyBtn" class="copy-btn">
+        <span>📋</span> Copy
+      </button>
+    </div>
+
+    <div class="footer">
+      💡 Want a specific category? Refresh for a new random insult or build your own version!
+    </div>
+  </div>
+
+  <script>
+    // ---------- INSULTS DATABASE (from our earlier conversation) ----------
+    const insults = [
+"I've seen smoother transfers on a Windows 10 update.",
+"That rail session was less 'Butter' and more 'I Can't Believe It's Not Better'.",
+"You're not supposed to wax the rail with your face.",
+"That boardslide was about as stylish as a colonoscopy.",
+"You're the first person to make the fun box look boring.",
+"You're pulling a massive wake... in your pants.",
+"Your edging is so inconsistent, even the water is confused.",
+"I've seen better line choice in a game of Connect four.",
+"I'd call your riding 'aggressive', but that would imply you were going in a specific direction.",
+"I’ve seen better edge control from a toddler with a crayon.",
+"Nice line, I think you just qualified for the slalom course",
+"You're here to hit the feature, not for a scenic tour of the lake",
+"Was that a transfer or a full body exfoliation?",
+"You had the perfect form of a guy trying to land a 360... in a dream where his legs don't work.",
+"Were you attempting a trick or just testing the water temperature with your face?"
+    ];
+
+    // ----- DOM elements -----
+    const insultDisplay = document.getElementById('insultDisplay');
+    const generateBtn = document.getElementById('generateBtn');
+    const copyBtn = document.getElementById('copyBtn');
+
+    // ----- Helper: random insult -----
+    function getRandomInsult() {
+      const randomIndex = Math.floor(Math.random() * insults.length);
+      return insults[randomIndex];
+    }
+
+    // ----- Update display with new insult -----
+    function showNewInsult() {
+      const insult = getRandomInsult();
+      insultDisplay.textContent = insult;
+    }
+
+    // ----- Copy to clipboard -----
+    function copyInsultToClipboard() {
+      const text = insultDisplay.textContent;
+      if (!text || text === 'Click the button to roast your friends!') {
+        alert('Generate an insult first!');
+        return;
+      }
+
+      navigator.clipboard.writeText(text).then(() => {
+        // temporary feedback
+        copyBtn.innerHTML = '<span>✅</span> Copied!';
+        setTimeout(() => {
+          copyBtn.innerHTML = '<span>📋</span> Copy';
+        }, 1500);
+      }).catch(err => {
+        alert('Failed to copy: ' + err);
+      });
+    }
+
+    // ----- Event listeners -----
+    generateBtn.addEventListener('click', showNewInsult);
+    copyBtn.addEventListener('click', copyInsultToClipboard);
+
+    // Optional: show a random insult on page load
+    window.addEventListener('load', showNewInsult);
+  </script>
+</body>
+</html>
